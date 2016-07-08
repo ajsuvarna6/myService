@@ -40,7 +40,7 @@ angular
 
 var checkLogin=function($q,$http,$location,$cookies){
 	var def=$q.defer();
-  var token=+"hdfkjhsd"+$cookies.get("token");
+  var token=$cookies.get("token");
   console.log("token:",token);
   if(token!==undefined || token!==null) {
     $http.get('/users/loggedin/'+token)

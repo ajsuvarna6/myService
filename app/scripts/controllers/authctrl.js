@@ -29,7 +29,7 @@ angular.module('myServiceApp')
     };
 
     vm.register=function(){
-      vm.user.dob=new Date($filter('date')(vm.user.dob,'dd/MM/yyyy'));
+      vm.user.dob=new Date($filter('date')(new Date(vm.user.dob), "yyyy-MM-dd"));//new Date($filter('date')(vm.user.dob,'fullDate'));
       console.log(vm.user);
       $http.post('/register',vm.user)
       .then(function(res){
