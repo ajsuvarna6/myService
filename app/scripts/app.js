@@ -30,7 +30,8 @@ angular
       .when('/login', {
         templateUrl: 'views/auth/login.html',
         controller: 'authctrl',
-        controllerAs: 'auth'
+        controllerAs: 'auth',
+        resolve: { loginCheck : checkLoggedIn }
       })
 
       .otherwise({
@@ -54,7 +55,6 @@ var checkLogin=function($q,$http,$location,$cookies){
         $cookies.remove("token");
   			$location.path('/login');
       }
-  		return def.promise;data
   	})
     .catch(function(err){
       console.log(err);
@@ -66,4 +66,19 @@ var checkLogin=function($q,$http,$location,$cookies){
 	else {
     $location.path("/login");
   }
+  return def.promise;
+}
+
+function checkLoggedIn($q,$http,$location,$cookies) {
+  var def=$q.defer();
+  var token=$cookies.get("token");
+  console.log("tokenlogin:",token);
+  if(token!==undefined) {
+    def.reject();
+    $location.path("#/");
+  }
+  else {
+    def.resolve();
+  }
+  return def.promise;
 }

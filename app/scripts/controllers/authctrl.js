@@ -16,6 +16,7 @@ angular.module('myServiceApp')
       console.log(vm.login);
       $http.post('/loginUser',vm.login)
       .then(function(res){
+        console.log(res);
         if(res.data.token!==null) {
           var expireDate = new Date();
           expireDate.setDate(expireDate.getDate() + 1);
@@ -39,7 +40,6 @@ angular.module('myServiceApp')
         console.log("error:",err);
       })
     }
-
 
     $(document).ready(function(){
         $(".nav-tabs a").click(function(e){

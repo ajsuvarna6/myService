@@ -27,18 +27,21 @@ module.exports = function(app) {
 			console.log(req.body);
 			var usr = user.findOne({email:req.body.email,password:req.body.password});
       usr.exec(function(err, user){
-				var token=""+user._id;
-				var log={
-					"flag":true,
-					"response":"Valid user",
-					"token":token+token.substring(3,13),
-					"username":user.fullname,
-					"gender":user.gender,
-					"mobile":user.mobile,
-					"email":user.email,
-					"image":user.image
-				}
+				var log={};
         if(user===null) {log.flag=false; log.response=err; log.token=null}
+				else {
+					var token=""+user._id;
+					log={
+						"flag":true,
+						"response":"Valid user",
+						"token":token+token.substring(3,13),
+						"username":user.fullname,
+						"gender":user.gender,
+						"mobile":user.mobile,
+						"email":user.email,
+						"image":user.image
+					}
+				}
 				if(err) {log.flag=false; log.response=err; log.token=null}
         sendResponse(res,log);
 				console.log("token:",log.token);
