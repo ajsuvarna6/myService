@@ -26,8 +26,8 @@
         </ul>
         <ul class="nav navbar-nav pull-right myaccount-navbar" ng-show="sidebarflag">
           <li class="dropdown">
-            <a class="dropdown-toggle myaccount" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> My Account <span class="caret"></span></a>
-            <ul class="dropdown-menu">
+            <a class="dropdown-toggle myaccount" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> {{userStat.username}} <span class="caret"></span></a>
+            <ul class="dropdown-menu" id="headerAccount">
               <li>
 								<a href="#"><span class="glyphicon glyphicon-wrench"></span> Settings</a>
 							</li>
@@ -39,7 +39,7 @@
 							</li>
 							<li class="divider"></li>
 							<li>
-								<a href="#/signout"><span class="glyphicon glyphicon-off"></span> Sign Out</a>
+								<a href="#/login" ng-click="signout()"><span class="glyphicon glyphicon-off"></span> Sign Out</a>
 							</li>
             </ul>
           </li>
@@ -47,8 +47,12 @@
       </div>
   </div>
   <script>
-  $(".myaccount").click(function(e){
-    e.preventDefault();
+
+  $(document).ready(function() {
+    $(".myaccount").click(function(e){
+      e.preventDefault();
+    });
   });
+
   </script>
 </div>

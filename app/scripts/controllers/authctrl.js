@@ -20,6 +20,7 @@ angular.module('myServiceApp')
         if(res.data.token!==null) {
           var expireDate = new Date();
           expireDate.setDate(expireDate.getDate() + 1);
+          $cookies.putObject("userStat",res.data,{'expires': expireDate});
           $cookies.put('token', res.data.token,{'expires': expireDate});
           $location.path("#/");
         }

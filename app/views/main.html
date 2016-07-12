@@ -5,10 +5,100 @@
       <div ng-include="'./views/mail-sidebar.html'" ng-init="sidebarflag=true"></div>
     </div>
     <div class="col-sm-8">
-      <h3>Views</h3>
+      <div class="well contents">
+        <h3>Views</h3>
+      </div>
     </div>
-    <div class="col-sm-2">
-      <h3>Chat space</h3>
+    <div class="col-sm-2 chat-part">
+      <div class="chat-tab">
+        <div class="chat-tab-head">
+          
+        </div>
+        <div class="chat-users">
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="chat">
+    <div class="chat-header">
+      <a href="">name</a>
+      <div class="pull-right">
+        <a href=""><span class="glyphicon glyphicon-chevron-down minimize"></span></a>
+        <a href=""><span class="glyphicon glyphicon-remove dismiss"></span></a>
+      </div>
+    </div>
+    <div class="chat-body">
+      <div class="chat-messages">
+      </div>
+    </div>
+    <div class="chat-footer">
+      <div class="chat-message">
+        <form class="chat-form">
+          <div class="message" contenteditable="true">
+            <span>Send a message</span>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </div>
+<script>
+$(document).ready(function(){
+  var $message=$(".message");
+  var $chat=$(".chat");
+  $(".chat-header .minimize").click(function(){
+    if($(this).hasClass("glyphicon-chevron-down")) {
+      $chat.css("height","30px");
+      $message.hide();
+      $('.glyphicon-chevron-down').addClass('glyphicon-chevron-up');
+      $(".glyphicon-chevron-up").removeClass("glyphicon-chevron-down");
+    } else {
+      $chat.css("height","350px");
+      $message.show();
+      $('.glyphicon-chevron-up').addClass('glyphicon-chevron-down');
+      $(".glyphicon-chevron-down").removeClass("glyphicon-chevron-up");
+    }
+  });
+
+  $(".chat-header .dismiss").click(function(){
+    $chat.hide();
+  });
+
+  $(".chat-form").on("submit",function(){
+    console.log("hi");
+  });
+  var placeHolder="<span>Send a message</span>"
+  $message.on('keydown',function(e){
+    console.log(e);
+
+    if((e.which>=65 && e.which<=90) || (e.which>=48 && e.which <=57) || (e.which>=96 && e.which <=111) || e.which!==18 || e.which===8) {
+      if($message[0].innerText.trim()==="Send a message")
+      {  $(".message").empty(); }
+    }
+    if($message[0].innerText==="") {
+          console.log("hi",e.which);
+      if(e.which===8) {
+        e.preventDefault();
+      }
+    }
+    if(e.which===13 && !e.shiftKey) {
+      e.preventDefault();
+      $(".chat-form").trigger("submit");
+    }
+  });
+
+  $message.focusout(function() {
+    console.log("Hello",$message);
+    if($message[0].innerText.trim()==="") {
+      $(".message").html(placeHolder);
+    }
+  });
+
+  $('.chat,.chat-body,.chat-messages').click(function(){
+    setTimeout(function() {
+      $message.focus();
+    }, 0);
+  });
+});
+</script>
